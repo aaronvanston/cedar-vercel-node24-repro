@@ -1,7 +1,11 @@
-export const handler = async () => {
+export const handler = async (event, context) => {
+  if (event.httpMethod !== 'GET') {
+    return { statusCode: 404 }
+  }
+
   return {
     statusCode: 200,
-    headers: { 'content-type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       ok: true,
       source: 'cedar-vercel-node24-repro',
