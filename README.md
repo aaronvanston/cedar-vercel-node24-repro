@@ -30,6 +30,14 @@ Deploy to Vercel with the RedwoodJS framework preset and Node.js 24.x, then call
 vercel curl /api/ping --deployment <deployment-url> -- --max-time 40 -i
 ```
 
+This repository is connected to Vercel here:
+
+- Project: `aaron-vanston/cedar-vercel-node24-repro`
+- Production URL: https://cedar-vercel-node24-repro.vercel.app
+- Deployment URL: https://cedar-vercel-node24-repro-cj92t5cx8-aaron-vanston.vercel.app
+- Deployment ID: `dpl_2GAYKLK7kt8zSSRpNpRaPfkop98N`
+- Runtime for `api/ping`: `nodejs24.x`
+
 Observed result on Vercel:
 
 ```text
@@ -43,3 +51,11 @@ Unhandled Rejection: SyntaxError: Unexpected end of JSON input
     at JSON.parse (<anonymous>)
     at IncomingMessage.<anonymous> (/opt/rust/nodejs.js:2:14238)
 ```
+
+The generated GraphQL function currently fails separately with Prisma 7 ESM/CommonJS loading:
+
+```text
+Error [ERR_REQUIRE_ESM]: require() of ES Module /var/task/api/db/generated/prisma/client.mts from /var/task/api/dist/lib/db.js not supported.
+```
+
+The minimal `api/ping` timeout and `/opt/rust/nodejs.js:2:14238` error are the focused reproduction.
