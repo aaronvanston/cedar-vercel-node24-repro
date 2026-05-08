@@ -1,0 +1,3 @@
+{
+  "buildCommand": "yarn cedar deploy vercel"
+}
